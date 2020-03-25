@@ -37,6 +37,9 @@ function addTweet(e) {
     //add Tweet to the list
     tweetsList.appendChild(li);
     console.log(tweet)
+
+    //add Tweet to Local Storage
+    addTweetToLS(tweet);
 }
 
 function deleteTweet(e){
@@ -49,4 +52,25 @@ function deleteTweet(e){
     } 
 
     //console.log();
+}
+
+function addTweetToLS(tweet){
+    let tweets;
+    //obtain the tweets
+    tweets = getTweetsLS();
+    //add the new tweet
+    tweets.push(tweet);
+    //pass to string the Array to local storage
+    localStorage.setItem('tweets', JSON.stringify(tweets));
+}
+
+function getTweetsLS(){
+    let tweets;
+    //values from the local storage
+    if(localStorage.getItem('tweets') === null){
+        tweets = [];
+    } else {
+        tweets = JSON.parse(localStorage.getItem('tweets'));
+    }
+    return tweets;
 }
