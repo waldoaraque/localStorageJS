@@ -72,11 +72,26 @@ function deleteTweet(e){
 
     if(e.target.className === 'borrar-tweet'){
         e.target.parentElement.remove();
+        deleteTweetLS(e.target.parentElement.innerText);
         console.log(`Tweet deleted`);
-        alert('Tweet deleted');
     } 
 
-    //console.log();
+}
+
+function deleteTweetLS(tweet){
+    let tweets, delTweet;
+    //delete the 'X' from the tweet
+    delTweet = tweet.substring(0, tweet.length -1);
+    
+    tweets = getTweetsLS();
+
+    tweets.forEach( (tweet, index) => {
+        if(delTweet === tweet){
+            tweets.splice(index, 1);
+        }
+    });
+
+    localStorage.setItem('tweets', JSON.stringify(tweets));
 }
 
 function addTweetToLS(tweet){
