@@ -11,10 +11,35 @@ function eventListeners() {
 
     tweetsList.addEventListener('click', deleteTweet);
 
+    document.addEventListener('DOMContentLoaded', readyLS);
+
 }
 
 // Functions
 
+//local storage ready 
+function readyLS(){
+    let tweets;
+    tweets = getTweetsLS();
+
+    tweets.forEach( tweet => {
+        //create delete button
+        const deleteButton = document.createElement('a');
+        deleteButton.classList = 'borrar-tweet';
+        deleteButton.innerText = 'X';
+
+        //create element and add the content list
+        const li = document.createElement('li');
+        li.innerText = tweet;
+
+        //add deleteButton to the Tweet
+        li.appendChild(deleteButton);
+
+        //add Tweet to the list
+        tweetsList.appendChild(li);
+    });
+    console.log(tweets)
+}
 
 // Add Tweet to form
 function addTweet(e) {
@@ -64,6 +89,7 @@ function addTweetToLS(tweet){
     localStorage.setItem('tweets', JSON.stringify(tweets));
 }
 
+//Test the data from local storage
 function getTweetsLS(){
     let tweets;
     //values from the local storage
@@ -74,3 +100,4 @@ function getTweetsLS(){
     }
     return tweets;
 }
+
